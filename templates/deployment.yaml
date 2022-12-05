@@ -1,9 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "test.fullname" . }}
-  labels:
-    {{- include "test.labels" . | nindent 4 }}
+  name: test
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -29,8 +27,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "raulcabm/wrangler-test:v0.0.1"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:

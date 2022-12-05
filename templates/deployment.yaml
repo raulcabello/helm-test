@@ -8,7 +8,7 @@ spec:
   {{- end }}
   selector:
     matchLabels:
-      {{- include "test.selectorLabels" . | nindent 6 }}
+      foo: bar
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,13 +16,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "test.selectorLabels" . | nindent 8 }}
+        foo: bar
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "test.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
